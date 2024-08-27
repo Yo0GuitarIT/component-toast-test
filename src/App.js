@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Button, Container, Stack } from "@mui/material";
+import Toast from "./components/Toast";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [toast, setToast] = useState({
+        open: false,
+        message: "",
+    });
+
+    const handleClick = (type) => {
+        setToast({
+            open: true,
+            message: `This is a ${type} toast.`,
+        });
+    };
+
+    const handleClose = (event, reason) => {
+        // prevent closing when clicking not in the toast area
+        if (reason === "clickaway") {
+            return;
+        }
+        setToast({ ...toast, open: false });
+    };
+
+    return (
+        <Container>
+            <Stack
+                direction="row"
+                spacing={2}
+                justifyContent="center"
+                sx={{ mt: 4 }}
+            >
+                <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => handleClick("success")}
+                >
+                    Success
+                </Button>
+                <Button
+                    variant="contained"
+                    color="warning"
+                    onClick={() => handleClick("warning")}
+                >
+                    Warning
+                </Button>
+                <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => handleClick("error")}
+                >
+                    Error
+                </Button>
+            </Stack>
+            <Toast
+                open={toast.open}
+                handleClose={handleClose}
+                message={toast.message}
+            />
+        </Container>
+    );
 }
 
 export default App;
