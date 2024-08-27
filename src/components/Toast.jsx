@@ -1,13 +1,55 @@
-import { Snackbar } from "@mui/material";
+import React, { useMemo } from "react";
+import { Alert, Snackbar, Slide } from "@mui/material";
 
-function Toast({ open, handleClose, message }) {
+const getSlideDirection = (severity) => {
+    switch (severity) {
+        case "success":
+            return "right";
+        case "warning":
+            return "up";
+        case "error":
+            return "left";
+        default:
+            return "down";
+    }
+};
+
+function Toast({
+    open,
+    handleClose,
+    message,
+    severity,
+    time,
+    vertical,
+    horizontal,
+}) {
+    const SlideTransition = useMemo(() => {
+        return React.forwardRef((props, ref) => (
+            <Slide
+                {...props}
+                direction={getSlideDirection(severity)}
+                ref={ref}
+            />
+        ));
+    }, [severity]);
+
     return (
         <Snackbar
             open={open}
-            autoHideDuration={2000}
+            autoHideDuration={time}
             onClose={handleClose}
-            message={message}
-        />
+            anchorOrigin={{ vertical, horizontal }}
+            TransitionComponent={SlideTransition}
+        >
+            <Alert
+                onClose={handleClose}
+                severity={severity === "default" ? "info" : severity}
+                variant="filled"
+                sx={{ width: "100%" }}
+            >
+                {message}
+            </Alert>
+        </Snackbar>
     );
 }
 
