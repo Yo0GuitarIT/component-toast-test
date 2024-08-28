@@ -2,14 +2,24 @@ import React from "react";
 import { Button, Container, Stack } from "@mui/material";
 import { ToastProvider } from "./components/ToastContext";
 import Toast from "./components/Toast";
-import { useCustomToast } from "./components/useCustomToast";
+import { useToast } from "./components/ToastContext";
 
 function ToastButton() {
-    const toast = useCustomToast();
+    const toast = useToast();
 
     return (
         <Stack direction='row' spacing={1} justifyContent='center'>
-            <Button variant='contained' color='success' onClick={() => toast.success("This is a success toast.")}>
+            <Button
+                variant='contained'
+                color='success'
+                onClick={() =>
+                    toast.success("This is a success toast.", {
+                        vertical: "bottom",
+                        horizontal: "right",
+                        slideDirection: "up",
+                    })
+                }
+            >
                 Success
             </Button>
             <Button variant='contained' color='warning' onClick={() => toast.warning("This is a warning toast.")}>

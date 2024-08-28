@@ -8,7 +8,7 @@ function SlideTransition(props) {
 
 function Toast() {
     const { toast, hideToast } = useToast();
-    const { open, message, severity, time, vertical, horizontal, SlideDirection } = toast;
+    const { open, message, severity, time, vertical, horizontal, slideDirection } = toast;
 
     const handleClose = (event, reason) => {
         if (reason === "clickaway") {
@@ -24,7 +24,7 @@ function Toast() {
             onClose={handleClose}
             anchorOrigin={{ vertical, horizontal }}
             TransitionComponent={SlideTransition}
-            TransitionProps={{ direction: SlideDirection }}
+            TransitionProps={{ direction: slideDirection }}
         >
             <Alert onClose={handleClose} severity={severity} variant='filled' sx={{ width: "100%" }}>
                 {message}
