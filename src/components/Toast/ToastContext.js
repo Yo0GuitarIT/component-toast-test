@@ -1,4 +1,5 @@
 import { useContext, createContext, useState } from "react";
+import Toast from "./Toast";
 
 const ToastContext = createContext();
 
@@ -49,5 +50,5 @@ export const ToastProvider = ({ children }) => {
         error: (message, customConfig) => showToast("error", message, customConfig),
         info: (message, customConfig) => showToast("info", message, customConfig),
     };
-    return <ToastContext.Provider value={contextValue}>{children}</ToastContext.Provider>;
+    return <ToastContext.Provider value={contextValue}>{children}<Toast/></ToastContext.Provider>;
 };
