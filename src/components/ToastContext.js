@@ -9,24 +9,24 @@ export const ToastProvider = ({ children }) => {
         open: false,
         message: "",
         severity: "info",
-        verical: "top",
+        vertical: "top",
         horizontal: "center",
         time: 3000,
     });
 
     const showToast = (config) => {
-        setToast({
-            ...toast,
+        setToast((prevToast) => ({
+            ...prevToast,
             open: true,
             ...config,
-        });
+        }));
     };
 
     const hideToast = () => {
-        setToast({
-            ...toast,
+        setToast((prevToast) => ({
+            ...prevToast,
             open: false,
-        });
+        }));
     };
 
     return <ToastContext.Provider value={{ toast, showToast, hideToast }}>{children}</ToastContext.Provider>;

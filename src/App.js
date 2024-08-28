@@ -10,7 +10,7 @@ function ToastButton() {
         success: { time: 1000, vertical: "bottom", horizontal: "left" },
         warning: { time: 2000, vertical: "top", horizontal: "center" },
         error: { time: 4000, vertical: "bottom", horizontal: "right" },
-        default: { time: 3000, vertical: "top", horizontal: "right" },
+        default: { time: 3000, vertical: "top", horizontal: "center" },
     };
 
     const handleClick = (type) => {
@@ -43,7 +43,7 @@ function ToastButton() {
 function App() {
     return (
         <ToastProvider>
-            <Container sx={{ height: "100vh", display: "flex", justifyContent: "center", padding: "2rem" }}>
+            <Container sx={{ height: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "2rem" }}>
                 <ToastButton />
                 <Toast />
             </Container>

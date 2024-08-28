@@ -16,7 +16,7 @@ const getSlideDirection = (severity) => {
 };
 
 function Toast() {
-    const [toast, setToast] = useToast();
+    const { toast, hideToast } = useToast();
     const { open, message, severity, time, vertical, horizontal } = toast;
 
     const SlideTransition = useMemo(() => {
@@ -27,7 +27,7 @@ function Toast() {
         if (reason === "clickaway") {
             return;
         }
-        setToast({ ...toast, open: false });
+        hideToast();
     };
 
     return (
