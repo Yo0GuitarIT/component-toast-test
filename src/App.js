@@ -38,13 +38,16 @@ function App() {
     };
 
     return (
-        <Container>
-            <Stack
-                direction="row"
-                spacing={2}
-                justifyContent="center"
-                sx={{ mt: 4 }}
-            >
+        <Container
+            sx={{
+                height: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                paddingBottom: "2rem",
+            }}
+        >
+            <Stack direction="row" spacing={1} justifyContent="center">
                 <Button
                     variant="contained"
                     color="success"
