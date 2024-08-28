@@ -14,7 +14,7 @@ function App() {
 
     const toastConfigs = {
         success: { time: 1000, vertical: "bottom", horizontal: "left" },
-        warning: { time: 2000, vertical: "bottom", horizontal: "center" },
+        warning: { time: 2000, vertical: "top", horizontal: "center" },
         error: { time: 4000, vertical: "bottom", horizontal: "right" },
         default: { time: 3000, vertical: "top", horizontal: "right" },
     };

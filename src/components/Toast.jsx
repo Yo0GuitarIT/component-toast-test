@@ -6,7 +6,7 @@ const getSlideDirection = (severity) => {
         case "success":
             return "right";
         case "warning":
-            return "up";
+            return "down";
         case "error":
             return "left";
         default:
