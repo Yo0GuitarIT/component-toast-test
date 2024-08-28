@@ -1,14 +1,13 @@
 import React from "react";
-import { Alert, Snackbar, Slide } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import { useToast } from "./ToastContext";
 
-function SlideTransition(props) {
-    return <Slide {...props} />;
-}
-
 function Toast() {
-    const { toast, hideToast } = useToast();
-    const { open, message, severity, time, vertical, horizontal, slideDirection } = toast;
+    const { activeToast, hideToast } = useToast();
+
+    if (!activeToast) return null;
+
+    const { message, severity, time, vertical, horizontal, key } = activeToast;
 
     const handleClose = (event, reason) => {
         if (reason === "clickaway") {
@@ -17,16 +16,20 @@ function Toast() {
         hideToast();
     };
 
+    const handleExited = () => {
+        hideToast();
+    };
+
     return (
         <Snackbar
-            open={open}
+            key={key}
+            open={Boolean(activeToast)}
             autoHideDuration={time}
             onClose={handleClose}
             anchorOrigin={{ vertical, horizontal }}
-            TransitionComponent={SlideTransition}
-            TransitionProps={{ direction: slideDirection }}
+            TransitionProps={{ onExited: handleExited }}
         >
-            <Alert onClose={handleClose} severity={severity} variant='filled' sx={{ width: "100%" }}>
+            <Alert onClose={handleClose} severity={severity} variant="filled" sx={{ width: "100%" }}>
                 {message}
             </Alert>
         </Snackbar>

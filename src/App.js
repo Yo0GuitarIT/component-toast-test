@@ -11,7 +11,7 @@ function App() {
                     height: "100vh",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "flex-end",
+                    justifyContent: "center",
                     alignItems: "center",
                     padding: "2rem",
                 }}
