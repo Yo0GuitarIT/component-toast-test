@@ -1,27 +1,14 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Alert, Snackbar, Slide } from "@mui/material";
 import { useToast } from "./ToastContext";
 
-const getSlideDirection = (severity) => {
-    switch (severity) {
-        case "success":
-            return "right";
-        case "warning":
-            return "down";
-        case "error":
-            return "left";
-        default:
-            return "down";
-    }
-};
+function SlideTransition(props) {
+    return <Slide {...props} />;
+}
 
 function Toast() {
     const { toast, hideToast } = useToast();
-    const { open, message, severity, time, vertical, horizontal } = toast;
-
-    const SlideTransition = useMemo(() => {
-        return React.forwardRef((props, ref) => <Slide {...props} direction={getSlideDirection(severity)} ref={ref} />);
-    }, [severity]);
+    const { open, message, severity, time, vertical, horizontal, SlideDirection } = toast;
 
     const handleClose = (event, reason) => {
         if (reason === "clickaway") {
@@ -37,13 +24,9 @@ function Toast() {
             onClose={handleClose}
             anchorOrigin={{ vertical, horizontal }}
             TransitionComponent={SlideTransition}
+            TransitionProps={{ direction: SlideDirection }}
         >
-            <Alert
-                onClose={handleClose}
-                severity={severity === "default" ? "info" : severity}
-                variant='filled'
-                sx={{ width: "100%" }}
-            >
+            <Alert onClose={handleClose} severity={severity} variant='filled' sx={{ width: "100%" }}>
                 {message}
             </Alert>
         </Snackbar>

@@ -12,6 +12,7 @@ export const ToastProvider = ({ children }) => {
         vertical: "top",
         horizontal: "center",
         time: 3000,
+        slideDirection: "down",
     });
 
     const showToast = (config) => {
