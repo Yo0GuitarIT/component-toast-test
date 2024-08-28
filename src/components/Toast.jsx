@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Alert, Snackbar, Slide } from "@mui/material";
+import { useToast } from "./ToastContext";
 
 const getSlideDirection = (severity) => {
     switch (severity) {
@@ -14,24 +15,20 @@ const getSlideDirection = (severity) => {
     }
 };
 
-function Toast({
-    open,
-    handleClose,
-    message,
-    severity,
-    time,
-    vertical,
-    horizontal,
-}) {
+function Toast() {
+    const [toast, setToast] = useToast();
+    const { open, message, severity, time, vertical, horizontal } = toast;
+
     const SlideTransition = useMemo(() => {
-        return React.forwardRef((props, ref) => (
-            <Slide
-                {...props}
-                direction={getSlideDirection(severity)}
-                ref={ref}
-            />
-        ));
+        return React.forwardRef((props, ref) => <Slide {...props} direction={getSlideDirection(severity)} ref={ref} />);
     }, [severity]);
+
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setToast({ ...toast, open: false });
+    };
 
     return (
         <Snackbar
@@ -44,7 +41,7 @@ function Toast({
             <Alert
                 onClose={handleClose}
                 severity={severity === "default" ? "info" : severity}
-                variant="filled"
+                variant='filled'
                 sx={{ width: "100%" }}
             >
                 {message}

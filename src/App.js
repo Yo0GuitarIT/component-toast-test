@@ -1,16 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Container, Stack } from "@mui/material";
 import Toast from "./components/Toast";
+import { ToastProvider, useToast } from "./components/ToastContext";
 
-function App() {
-    const [toast, setToast] = useState({
-        open: false,
-        message: "",
-        severity: "success",
-        vertical: "top",
-        horizontal: "left",
-        time: 3000,
-    });
+function ToastButton() {
+    const { showToast } = useToast();
 
     const toastConfigs = {
         success: { time: 1000, vertical: "bottom", horizontal: "left" },
@@ -21,72 +15,39 @@ function App() {
 
     const handleClick = (type) => {
         const config = toastConfigs[type] || toastConfigs.default;
-        setToast({
-            open: true,
+        showToast({
             message: `This is a ${type} toast.`,
             severity: type,
             ...config,
         });
     };
 
-    const handleClose = (event, reason) => {
-        // prevent closing when clicking not in the toast area
-        if (reason === "clickaway") {
-            return;
-        }
-        setToast({ ...toast, open: false });
-    };
-
     return (
-        <Container
-            sx={{
-                height: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-end",
-                paddingBottom: "2rem",
-            }}
-        >
-            <Stack direction="row" spacing={1} justifyContent="center">
-                <Button
-                    variant="contained"
-                    color="success"
-                    onClick={() => handleClick("success")}
-                >
-                    Success
-                </Button>
-                <Button
-                    variant="contained"
-                    color="warning"
-                    onClick={() => handleClick("warning")}
-                >
-                    Warning
-                </Button>
-                <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => handleClick("error")}
-                >
-                    Error
-                </Button>
-                <Button
-                    variant="contained"
-                    color="info"
-                    onClick={() => handleClick("default")}
-                >
-                    default
-                </Button>
-            </Stack>
-            <Toast
-                open={toast.open}
-                handleClose={handleClose}
-                message={toast.message}
-                severity={toast.severity}
-                vertical={toast.vertical}
-                horizontal={toast.horizontal}
-                time={toast.time}
-            />
-        </Container>
+        <Stack direction='row' spacing={1} justifyContent='center'>
+            <Button variant='contained' color='success' onClick={() => handleClick("success")}>
+                Success
+            </Button>
+            <Button variant='contained' color='warning' onClick={() => handleClick("warning")}>
+                Warning
+            </Button>
+            <Button variant='contained' color='error' onClick={() => handleClick("error")}>
+                Error
+            </Button>
+            <Button variant='contained' color='info' onClick={() => handleClick("default")}>
+                Default
+            </Button>
+        </Stack>
+    );
+}
+
+function App() {
+    return (
+        <ToastProvider>
+            <Container sx={{ height: "100vh", display: "flex", justifyContent: "center", padding: "2rem" }}>
+                <ToastButton />
+                <Toast />
+            </Container>
+        </ToastProvider>
     );
 }
 
