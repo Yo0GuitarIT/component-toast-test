@@ -5,15 +5,15 @@ function ToastButton() {
     const toast = useToast();
 
     return (
-        <Stack direction='row' spacing={1} justifyContent='center' flexWrap="wrap">
+        <Stack direction='row' spacing={1} justifyContent='center' flexWrap='wrap'>
             <Button
                 variant='contained'
                 color='primary'
                 onClick={() => {
-                    toast.success("成功訊息 1",{ time: 1500 });
-                    toast.info("資訊訊息", { time: 1000 });
-                    toast.warning("警告訊息",{ time: 500 });
-                    toast.error("錯誤訊息",{ time: 300 });
+                    toast.success("成功訊息 1", { time: 300 });
+                    toast.info("資訊訊息", { time: 300 });
+                    toast.warning("警告訊息", { time: 300 });
+                    toast.error("錯誤訊息", { time: 300 });
                 }}
             >
                 觸發多個 Toast

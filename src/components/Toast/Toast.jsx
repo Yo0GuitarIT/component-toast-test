@@ -29,7 +29,7 @@ function Toast() {
             anchorOrigin={{ vertical, horizontal }}
             TransitionProps={{ onExited: handleExited }}
         >
-            <Alert onClose={handleClose} severity={severity} variant="filled" sx={{ width: "100%" }}>
+            <Alert onClose={handleClose} severity={severity} variant='filled' sx={{ width: "100%" }}>
                 {message}
             </Alert>
         </Snackbar>
