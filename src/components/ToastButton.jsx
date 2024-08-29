@@ -10,10 +10,10 @@ function ToastButton() {
                 variant='contained'
                 color='primary'
                 onClick={() => {
-                    toast.success("成功訊息 1", { time: 300 });
-                    toast.info("資訊訊息", { time: 300 });
-                    toast.warning("警告訊息", { time: 300 });
-                    toast.error("錯誤訊息", { time: 300 });
+                    toast.success("成功訊息 短訊息", { time: 500 });
+                    toast.info("資訊訊息 中等長度的訊息", { time: 500 });
+                    toast.warning("警告訊息 這是一個詳細的長訊息", { time: 500 });
+                    toast.error("錯誤", { time: 500 });
                 }}
             >
                 觸發多個 Toast
@@ -23,9 +23,9 @@ function ToastButton() {
                 color='success'
                 onClick={() => {
                     toast.success("第一個成功", { vertical: "top", horizontal: "left" });
-                    toast.success("第二個成功", { vertical: "top", horizontal: "right" });
-                    toast.success("第三個成功", { vertical: "bottom", horizontal: "left" });
-                    toast.success("第四個成功", { vertical: "bottom", horizontal: "right" });
+                    toast.success("第二個錯誤", { severity: "error", vertical: "top", horizontal: "right" });
+                    toast.success("第三個警示", { severity: "warning", vertical: "bottom", horizontal: "left" });
+                    toast.success("預設", { severity: "info", vertical: "bottom", horizontal: "right" });
                 }}
             >
                 多個成功 Toast
@@ -36,7 +36,7 @@ function ToastButton() {
                 onClick={() => {
                     toast.error("錯誤 1", { time: 1000 });
                     toast.error("錯誤 2", { time: 2000 });
-                    toast.error("錯誤 3", { time: 3000 });
+                    toast.error("錯誤 3", { time: 2500 });
                 }}
             >
                 連續錯誤 Toast
@@ -59,8 +59,8 @@ function ToastButton() {
                 onClick={() => {
                     toast.info("開始長時間操作");
                     setTimeout(() => {
-                        toast.success("操作完成！", { time: 5000 });
-                    }, 3000);
+                        toast.success("操作完成！", { time: 3000 });
+                    }, 5000);
                 }}
             >
                 模擬操作 Toast

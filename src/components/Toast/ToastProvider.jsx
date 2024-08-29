@@ -1,30 +1,41 @@
-import { useCallback, useEffect, useState } from "react";
-import ToastContext from "./ToastContext";
+import { useCallback, useEffect, useReducer } from "react";
+import { ToastContext } from "./ToastContext";
 import Toast from "./Toast";
-import { toastConfigs } from "./constants";
+import { toastConfigs, DEFAULT_TOAST_CONFIG } from "./constants";
+
+const toastReducer = (state, action) => {
+    switch (action.type) {
+        case "ENQUEUE_TOAST":
+            return { ...state, queue: [...state.queue, action.payload] };
+        case "DEQUEUE_TOAST":
+            return { ...state, activeToast: state.queue[0], queue: state.queue.slice(1) };
+        case "HIDE_TOAST":
+            return { ...state, activeToast: null };
+        default:
+            return state;
+    }
+};
 
 export const ToastProvider = ({ children }) => {
-    const [toastQuene, setToastQuene] = useState([]);
-    const [activeToast, setActiveToast] = useState(null);
+    const [state, dispatch] = useReducer(toastReducer, { queue: [], activeToast: null });
 
     useEffect(() => {
-        if (toastQuene.length && !activeToast) {
-            setActiveToast(toastQuene[0]);
-            setToastQuene((prev) => prev.slice(1));
+        if (state.queue.length && !state.activeToast) {
+            dispatch({ type: "DEQUEUE_TOAST" });
         }
-    }, [toastQuene, activeToast]);
+    }, [state.queue, state.activeToast]);
 
     const showToast = useCallback((type, message, customConfig = {}) => {
-        const config = { ...toastConfigs[type], message, ...customConfig };
-        setToastQuene((prev) => [...prev, { ...config, key: new Date().getDate() }]);
+        const config = { ...DEFAULT_TOAST_CONFIG, ...toastConfigs[type], message, ...customConfig };
+        dispatch({ type: "ENQUEUE_TOAST", payload: { ...config, key: new Date().getTime() } });
     }, []);
 
     const hideToast = useCallback(() => {
-        setActiveToast(null);
+        dispatch({ type: "HIDE_TOAST" });
     }, []);
 
     const contextValue = {
-        activeToast,
+        activeToast: state.activeToast,
         showToast,
         hideToast,
         success: (message, customConfig) => showToast("success", message, customConfig),

@@ -23,7 +23,6 @@ function Toast() {
             autoHideDuration={time}
             onClose={handleClose}
             anchorOrigin={{ vertical, horizontal }}
-            // TransitionProps={{ onExited: handleExited }}
         >
             <Alert onClose={handleClose} severity={severity} variant='filled' sx={{ width: "100%" }}>
                 {message}

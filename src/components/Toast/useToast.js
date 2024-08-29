@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import ToastContext from "./ToastContext";
+import { ToastContext } from "./ToastContext";
 
 export const useToast = () => {
     const context = useContext(ToastContext);
@@ -8,5 +8,3 @@ export const useToast = () => {
     }
     return context;
 };
-
-export default useToast;
