@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, Snackbar } from "@mui/material";
-import { useToast } from "./ToastContext";
+import { useToast } from "./useToast";
 
 function Toast() {
     const { activeToast, hideToast } = useToast();
@@ -16,10 +16,6 @@ function Toast() {
         hideToast();
     };
 
-    const handleExited = () => {
-        hideToast();
-    };
-
     return (
         <Snackbar
             key={key}
@@ -27,7 +23,7 @@ function Toast() {
             autoHideDuration={time}
             onClose={handleClose}
             anchorOrigin={{ vertical, horizontal }}
-            TransitionProps={{ onExited: handleExited }}
+            // TransitionProps={{ onExited: handleExited }}
         >
             <Alert onClose={handleClose} severity={severity} variant='filled' sx={{ width: "100%" }}>
                 {message}

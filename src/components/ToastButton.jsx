@@ -1,4 +1,4 @@
-import { useToast } from "./Toast/ToastContext";
+import { useToast } from "./Toast/useToast";
 import { Button, Stack } from "@mui/material";
 
 function ToastButton() {

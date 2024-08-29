@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@mui/material";
-import { ToastProvider } from "./components/Toast/ToastContext";
+import { ToastProvider } from "./components/Toast/ToastProvider";
 import ToastButton from "./components/ToastButton";
 
 function App() {
